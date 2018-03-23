@@ -17,7 +17,7 @@
  * You should have received a copy of the GNU General Public License
  * along with pcaudiolib.  If not, see <http://www.gnu.org/licenses/>.
  */
-
+// #include <stdio.h> 
 #include "config.h"
 #include "audio_priv.h"
 
@@ -25,7 +25,7 @@
 
 #include <alsa/asoundlib.h>
 #include <string.h>
-#include <unistd.h>
+// #include <unistd.h>
 
 struct alsa_object
 {
@@ -101,6 +101,8 @@ alsa_object_open(struct audio_object *object,
 	snd_pcm_hw_params_malloc(&params);
 
 	int err = 0;
+	
+//	printf("ALSA Opened... ");
 	
 	if ((err = snd_pcm_open(&self->handle, self->device ? self->device : "default", SND_PCM_STREAM_PLAYBACK, 0)) < 0)
 		goto error;
@@ -194,7 +196,7 @@ alsa_object_openrec(struct audio_object *object,
 	snd_pcm_hw_params_malloc(&params);
 	
 	 
-	//  fprintf(stderr, __FILE__"OK it is ALSA %s\n", "");
+ //	printf("ALSA opened record");
 
 	int err = 0;
 	if ((err = snd_pcm_open(&self->handle, self->device ? self->device : "default", SND_PCM_STREAM_CAPTURE, 0)) < 0)
@@ -302,7 +304,7 @@ alsa_object_read(struct audio_object *object,
 	snd_pcm_uframes_t nToread = bytes / self->sample_size; // Number of frames to read.
 	snd_pcm_sframes_t nhasread = 0; // And number alsa actually has read.
  
-//  fprintf(stderr, __FILE__"OK it is ALSA %s\n", "");
+// printf("ALSA read ");
 
 	while (1) {
 		nhasread = snd_pcm_readi(self->handle, data, nToread);
@@ -351,6 +353,8 @@ alsa_object_write(struct audio_object *object,
 	int err = 0;
 	snd_pcm_uframes_t nToWrite = bytes / self->sample_size; // Number of frames to write.
 	snd_pcm_sframes_t nWritten = 0; // And number alsa actually wrote.
+	
+//	printf("ALSA Write ");
 
 	while (1) {
 		nWritten = snd_pcm_writei(self->handle, data, nToWrite);

@@ -1,3 +1,6 @@
+PCaudiolib-io is a fork of PCaudiolib.
+It can deal with input devices.
+
 # Portible C Audio Library 1.1
 
 - [Build Dependencies](#build-dependencies)

@@ -17,7 +17,7 @@
  * You should have received a copy of the GNU General Public License
  * along with pcaudiolib.  If not, see <http://www.gnu.org/licenses/>.
  */
-
+// #include <stdio.h> 
 #include "config.h"
 #include "audio_priv.h"
 
@@ -27,10 +27,6 @@
 #include <pulse/simple.h>
 #include <string.h>
 #include <stdbool.h>
-
-#include <stdio.h>
-#include <unistd.h>
-#include <errno.h>
 
 struct pulseaudio_object
 {
@@ -80,6 +76,8 @@ pulseaudio_object_open(struct audio_object *object,
 	}
 
 	int error = 0;
+	
+//	printf("It is PulseAudio");
 	
 		self->s = pa_simple_new(NULL,
 	                        self->application_name,
@@ -131,7 +129,7 @@ pulseaudio_object_openrec(struct audio_object *object,
 
 	int error = 0;
 	
-	// fprintf(stderr, __FILE__"OK it is Pulse %s\n", "");
+//		printf("It is PulseAudio");
 	
 	self->s = pa_simple_new(NULL,
 	                        self->application_name,
@@ -201,6 +199,7 @@ pulseaudio_object_write(struct audio_object *object,
 		return 0;
 
 	int error = 0;
+//		printf("It is PulseAudio");
 	pa_simple_write(self->s, data, bytes, &error);
 	return error;
 }
@@ -213,8 +212,8 @@ pulseaudio_object_read(struct audio_object *object,
 	struct pulseaudio_object *self = to_pulseaudio_object(object);
 	if (!self->s)
 		return 0;
- // fprintf(stderr, __FILE__"OK it is Pulse %s\n", "");
-	int error = 0;
+ 	int error = 0;
+//		printf("It is PulseAudio");
 	pa_simple_read(self->s, data, bytes, &error);
  	return error;
 }
